@@ -1,13 +1,11 @@
-# Captura 123 — GitHub Pages + Supabase
+# Captura 123
 
-Site estático com autenticação por link enviado ao e-mail e armazenamento de textos no Supabase PostgreSQL. Cada usuário só pode ler e inserir seus próprios registros, conforme RLS.
+Site estático para GitHub Pages com campo de texto e salvamento automático no Supabase PostgreSQL após 1 segundo sem digitação. Não exige login. Digite por exemplo `12455738393` e aguarde a confirmação.
 
-## Publicar
+## Publicação
 
-No GitHub: Settings > Pages > Deploy from a branch > main / (root). Não requer Node.js nem SQLite.
+GitHub Settings > Pages > Deploy from a branch > main / (root).
 
-No Supabase: Authentication > URL Configuration, configure Site URL com a URL final do GitHub Pages e adicione essa mesma URL em Redirect URLs. Em Authentication > Providers > Email, mantenha o login por OTP habilitado e configure o serviço de envio de e-mails conforme os limites da plataforma.
+## Privacidade e limites
 
-## Segurança
-
-A chave no navegador é publishable (pública); nunca coloque uma service_role key no frontend. Os dados são protegidos por autenticação e Row Level Security. O campo captura somente o texto inserido voluntariamente na aplicação, após 1 segundo sem digitar. Cada alteração salva cria um novo registro. Evite registrar dados sensíveis sem políticas adicionais de privacidade e retenção.
+Qualquer visitante pode inserir textos, mas visitantes anônimos não podem consultar os registros via API. Para consultar dados, use o painel autenticado do Supabase > Table Editor > public.entries. Não use para senhas, dados bancários, dados pessoais de terceiros ou informações sensíveis. A API pública pode receber spam e gerar consumo/custos; configure proteção antiabuso antes de divulgar amplamente. O projeto antigo com Node.js/SQLite não é necessário para o GitHub Pages.

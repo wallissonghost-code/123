@@ -1,13 +1,13 @@
-# Captura de texto
+# Captura 123 — GitHub Pages + Supabase
 
-Protótipo para salvar automaticamente textos inseridos voluntariamente no campo da própria aplicação. Salva após 1 segundo sem digitação.
+Site estático com autenticação por link enviado ao e-mail e armazenamento de textos no Supabase PostgreSQL. Cada usuário só pode ler e inserir seus próprios registros, conforme RLS.
 
-## Uso
+## Publicar
 
-Requer Node.js 22.13 ou superior. Execute `npm start` e abra `http://localhost:3000`.
+No GitHub: Settings > Pages > Deploy from a branch > main / (root). Não requer Node.js nem SQLite.
 
-O SQLite é criado em `data/entries.sqlite`. Configure `DB_PATH` para mudar o local.
+No Supabase: Authentication > URL Configuration, configure Site URL com a URL final do GitHub Pages e adicione essa mesma URL em Redirect URLs. Em Authentication > Providers > Email, mantenha o login por OTP habilitado e configure o serviço de envio de e-mails conforme os limites da plataforma.
 
-API: `GET /api/entries` e `POST /api/entries` com JSON `{ "text": "Oi, teste" }`.
+## Segurança
 
-**Atenção:** este protótipo não possui autenticação. Use somente com textos de teste não sensíveis. Para publicar na internet, implemente autenticação e controle de acesso. GitHub Pages não executa o servidor nem persiste o banco SQLite.
+A chave no navegador é publishable (pública); nunca coloque uma service_role key no frontend. Os dados são protegidos por autenticação e Row Level Security. O campo captura somente o texto inserido voluntariamente na aplicação, após 1 segundo sem digitar. Cada alteração salva cria um novo registro. Evite registrar dados sensíveis sem políticas adicionais de privacidade e retenção.
